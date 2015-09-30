@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>My Movies</title>
+    <!--Scripts Begin-->
+    <!--Angular Core Code-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js" type="text/javascript"></script>
+    <!--Angular Resource package-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.min.js" type="text/javascript"></script>
+    <!--Angular Routing package-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js" type="text/javascript"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js" type="text/javascript"></script>
+    
+    <script src="js/scripts.js" type="text/javascript"></script>
+    <!--Scripts End-->
+
+    <!--Stylesheets Begin-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--Stylesheets Begin-->
+</head>
+<body ng-app="movieApp">
+
+<div id="header">
+    <div class="header-inner container">
+        <div id="logo"><h1>MyMovie Search</h1></div>
+    </div>
+
+</div>
+<div class="container">
+
+    <div id="main-content" ng-controller="IndexController">
+        <div class="search row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 {{validation}}">
+                <input class="form-control center-block " ng-model="searchTerm" ng-keyup="search()" name="searchTerm" placeholder="Please type a movie name"/>
+            </div>
+            <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button class="btn btn-primary center-block" ng-click="search()" name="btnSearch"><i class="fa fa-search"></i>Search</button>
+            </div>-->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-danger" role="alert" ng-show="validation=='has-error'">
+                    <strong>Error:</strong> Please type a movie name to perform the search.
+                </div>
+            </div>
+        </div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="searching-for col-lg-3 col-md-3 col-sm-3 col-xs-12">Searching for:</div>
+				<div class="searching-for-term col-lg-9 col-md-9 col-sm-9 col-xs-12">{{searchTerm}}</div>
+			</div>
+
+        <div class="row">
+            <div class="spinner" ng-show="loading">
+                <div class="ball"></div>
+                <p>LOADING</p>
+            </div>
+            <div ng-show="noResults">
+                Sorry No movies found;
+            </div>
+            <div class="movies">
+                <div class="movies animate col-lg-4 col-md-4 col-sm-4 col-xs-12 center-block"  ng-repeat="movie in movies.data.movies | filter:searchTerm">
+                    <div class="poster"><a ng-href="{{movie.links.alternate}}"><img ng-src="{{movie.posters.thumbnail}}" alt="{{movie.title}}"/></a></div>
+                    <div class="title">{{movie.title}}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
